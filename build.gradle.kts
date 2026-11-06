@@ -19,8 +19,27 @@ repositories {
     mavenCentral()
 }
 
+configurations.configureEach {
+    exclude(
+        group = "org.springframework.boot",
+        module = "spring-boot-starter-logging"
+    )
+}
+
 dependencies {
-    implementation("org.springframework.boot:spring-boot-starter-webmvc")
+    implementation("org.springframework.boot:spring-boot-starter-webmvc") {
+        exclude(
+            group = "org.springframework.boot",
+            module = "spring-boot-starter-tomcat"
+        )
+    }
+
+    implementation("org.springframework.boot:spring-boot-starter-jetty")
+    implementation("org.springframework.boot:spring-boot-starter-log4j2")
+
+    implementation("com.microsoft.playwright:playwright:1.64.0")
+    implementation("org.jsoup:jsoup:1.24.1")
+
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("tools.jackson.module:jackson-module-kotlin")
     testImplementation("org.springframework.boot:spring-boot-starter-webmvc-test")
